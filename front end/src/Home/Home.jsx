@@ -14,9 +14,12 @@ const Home = ({ onLogout, userInfo }) => {
     const [inputValue, setInputValue] = useState('');
     const [tasks, setTasks] = useState([]);
     const [editingIndex, setEditingIndex] = useState(-1);
+    var indextoEdit = 0;
+
     const [account, setAccount] = useState(false)
     const [taskIndex, setTaskIndex] = useState(null);
     const [taskStates, setTaskStates] = useState(tasks.map(() => "unchecked"));
+
 
 
     const toggleAccount = () => {
@@ -39,7 +42,7 @@ const Home = ({ onLogout, userInfo }) => {
             if (response.data.status === 200) {
                 setTasks(response.data.todos);
             } else {
-                console.error(response.data.message);
+                alert("you don't have nothing to do")
             }
         } catch (error) {
             console.error('Error fetching tasks:', error);
@@ -47,12 +50,13 @@ const Home = ({ onLogout, userInfo }) => {
     };
 
     useEffect(() => {
-        // eslint-disable-next-line react/prop-types
+
         fetchTasks(userInfo.email)
-        // eslint-disable-next-line react/prop-types
+
     }, [userInfo.email]);
 
     const addTask = async () => {
+
         if (inputValue === '') {
             alert('you must write something');
         } else {
@@ -79,16 +83,23 @@ const Home = ({ onLogout, userInfo }) => {
 
     const toggleTask = async (index) => {
         console.log(tasks[index].id)
+        let state = tasks[index].state
+        if(state === "complete"){
+            state = "en cours"
+        }else{
+            state = "complete"
+        }
         try {
 
             const response = await axios.post(`http://127.0.0.1:8000/api/todo/update`, {
                 "id": tasks[index].id,
-                "state": tasks[index].state === "complete" ? "complete" : "en cours",
+                "state": state,
             });
 
             if (response.data.status === 200) {
+                alert("state has been change")
                 const updatedTasks = [...tasks];
-                updatedTasks[index].state = response.data.updatedState;
+                updatedTasks[index].state = state;
                 setTasks(updatedTasks);
             } else {
                 console.error(response.data.message);
@@ -116,8 +127,32 @@ const Home = ({ onLogout, userInfo }) => {
             console.error('Error deleting task:', error);
         }
     };
+
+    const handleEdit = async (e) =>{
+        e.preventDefault();
+        try{
+            console.log(tasks[indextoEdit].name)
+            const response = await axios.post(`http://127.0.0.1:8000/api/todo/update`, {
+                "id": tasks[indextoEdit].id,
+                "name": inputValue
+            });
+            if (response.data.status === 200){
+                console.log(response.data.message)
+                fetchTasks(userInfo.email);
+                setInputValue('');
+                setEditingIndex(-1)
+            }else {
+                alert(response.data.status)
+            }
+        }catch (error){
+            alert("data has not updated")
+        }
+    }
+
     const editTask = (index) => {
+        indextoEdit = index;
         setInputValue(tasks[index].name);
+        console.log(tasks[index].name);
         setEditingIndex(index);
     };
 
@@ -148,7 +183,7 @@ const Home = ({ onLogout, userInfo }) => {
                         value={inputValue}
                         onChange={(e) => setInputValue(e.target.value)}
                     />
-                    <button className='addTaskbtn' onClick={addTask}>{editingIndex === -1 ? 'Add' : 'Update'}</button>
+                    <button className='addTaskbtn' onClick={editingIndex !== -1? handleEdit : addTask}>{editingIndex !== -1 ? 'Update' : 'Add'}</button>
                     {editingIndex !== -1}
                 </div>
                 <ul id="list-container">
