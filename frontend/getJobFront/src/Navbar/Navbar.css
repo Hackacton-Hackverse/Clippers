@@ -1,0 +1,66 @@
+.navbar{
+    position: fixed;
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    margin-left: 4%;
+    border-radius: 50px;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding-left: 20px;
+    padding-right: 20px;
+    font-family: Poppins, sans-serif;
+    z-index: 10;
+    top: 30px;
+}
+.menu-btn{
+    display: none;
+}
+.logonomsite{
+    display: flex;
+    align-items: center;
+    font-family: Poppins, sans-serif;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.logosite{
+    height: 70px;
+    margin-right: 10px;
+}
+
+.nav-item ul{;
+    display: flex;
+    font-size: 18pt;
+}
+
+.nav-item ul li{
+    cursor: pointer;
+    margin: 10px;
+}
+
+.nav-item ul li:hover{
+    background: rgba(98, 97, 97, 0.87);
+    border-radius: 10px;
+}
+
+.hide{
+    display: none;
+}
+
+.profile-manage{
+    display: flex;
+    padding-left: 10px;
+    padding-right: 10px;
+    justify-content: space-between;
+}
+
+button{
+    background-color: transparent;
+    border: none;
+}
+
+.account{
+    margin-left: 5px;
+    margin-right: 5px;
+}

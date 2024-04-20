@@ -1,0 +1,162 @@
+.cvcontainer{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    align-items: center;
+    background-color: rgba(128, 128, 128, 0.59);
+}
+
+.cvform{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 210mm;
+    border-left: 1px solid;
+    border-right: 1px solid;
+    padding: 30px;
+    padding-top: 100px;
+    padding-bottom: 50px;
+    background-color: rgba(255, 255, 255, 0.6);
+}
+
+.headform{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 300px;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.photoUser{
+    display: flex;
+    height: 230px;
+    width: 220px;
+    border: 1px;
+    border-style: dashed;
+    overflow: hidden;
+}
+
+.yourprofilephoto{
+    display: flex;
+    height: 230px;
+    width: 220px;
+}
+
+.choosephoto{
+    position: relative;
+    background: #1985a1;
+    border-radius: 50px;
+    padding: 10px;
+    font-size: 15pt;
+    cursor: pointer;
+}
+
+.removephoto{
+    position: relative;
+    background: rgba(227, 102, 102, 0.9);
+    border-radius: 50px;
+    padding: 10px;
+    font-size: 15pt;
+    cursor: pointer;
+}
+
+.edit-delete-photo{
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    margin-inside: 10px;
+}
+
+.input-box {
+    position: relative;
+    top: 30px;
+    display: flex;
+    align-items: center;
+    height: 50px;
+    margin-left: 30px;
+    margin-bottom: 10px; /* Optionnel : pour ajouter de l'espace entre chaque champ */
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 1.5rem;
+}
+
+.input-box input{
+    height: 40px;
+    width: 60%;
+    border-radius: 5px;
+    border: 1px solid;
+    padding-left: 5px;
+}
+
+.input-box span {
+    width: 30%; /* Largeur fixe pour les labels */
+    margin-right: 10px; /* Marge à droite des labels */
+}
+
+.occupations{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.addoccupation{
+    position: relative;
+    top: 30px;
+    padding: 10px;
+    border: 1px solid;
+    border-radius: 5px;
+    font-family: Poppins, sans-serif;
+    font-size: 20px;
+    background-color: #a44574;
+}
+
+.removeoccupation{
+    position: relative;
+    padding: 8px;
+    border: 1px solid;
+    border-radius: 5px;
+    font-family: Poppins, sans-serif;
+    font-size: 20px;
+    background-color: #a44574;
+}
+
+.occupations .input-box div{
+    align-items: center;
+}
+
+.datejob input{
+    width: 130px;
+}
+.occupation input{
+    width: 300px;
+}
+
+.savemyform{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.saveCv{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 50px;
+    width: 100px;
+    padding: 10px;
+    border: 1px;
+    border-radius: 5px;
+    font-family: Poppins, sans-serif;
+    font-size: 20px;
+    background-color: #a44574;
+}

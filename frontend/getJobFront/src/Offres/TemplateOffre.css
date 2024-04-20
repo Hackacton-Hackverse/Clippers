@@ -1,0 +1,76 @@
+.offre{
+    position: relative;
+    top: 150px;
+    margin-bottom: 200px;
+}
+
+.all-offer{
+    display: flex;
+    flex-wrap: wrap;
+    --bs-gutter-x: 1.5rem;
+    --bs-gutter-y: 0;
+    width: 100%;
+}
+.offers{
+    position: relative;
+    margin-bottom: 2rem;
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+.offer{
+    position: relative;
+    height: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    border-radius: 2rem;
+    cursor: pointer;
+}
+
+.offer:hover{
+    position: relative;
+    height: 110%;
+    display: flex;
+    flex-flow: column nowrap;
+    border-radius: 2rem;
+}
+
+.containerimg-job{
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    margin-bottom: 1rem;
+    min-width: 200px;
+    max-width: 400px;
+}
+
+.imgJob{
+    display: block;
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    vertical-align: middle;
+    border-radius: 2rem ;
+}
+
+.description-job{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.Postuler button{
+    border: 3px solid #1985a1;
+    padding: 20px;
+    border-radius: 50px;
+    color: #ffffff;
+    background: #1985a1 ;
+    font-size: 20pt;
+    font-weight: bold;
+    font-family: Poppins, sans-serif;
+}
+
+.title-job{
+    font-size: 30pt;
+    font-weight: bold;
+}
