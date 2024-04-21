@@ -21,11 +21,12 @@ function RegisterForm ({onLogin}) {
     const handleClick = async (e) => {
         e.preventDefault();
         const {username, email, password} = formdata;
-        let registerurl = 'http://127.0.0.1:8000/api/user/register';
+        let registerurl = 'http://127.0.0.1:8000/api/register';
         let data = {
             name: username,
             email: email,
-            password: password
+            password: password,
+            password_confirmation: password
         };
         try {
             const response = await axios.post(registerurl, data);
@@ -45,7 +46,7 @@ function RegisterForm ({onLogin}) {
             }
         } catch (error) {
             // Gérer les erreurs de la requête
-            alert(error);
+            console.log(error);
         }
         //ici on met les actions de type verification d'email et etc (voir si on peut ajouter l'user)
 

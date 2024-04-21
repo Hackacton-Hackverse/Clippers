@@ -16,8 +16,14 @@ use \App\Http\Controllers\CvController;
 */
 
 Route::post('/add', [CvController::class, 'store']);
-Route::get('get', [CvController::class, 'index'] );
+Route::get('/get', [CvController::class, 'index'] );
+Route::delete('delete/{uuid}',[CvController::class,'destroy']);
+Route::put('update/{uuid}',[CvController::class, 'update']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+
+require __DIR__.'/auth.php';

@@ -6,6 +6,8 @@ use App\Models\Cv;
 use App\Models\Occupation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\File;
+
 
 class CvController extends Controller
 {
@@ -20,7 +22,7 @@ class CvController extends Controller
 
         // Ajouter le contenu de la photo à chaque CV
         $cvs->transform(function ($cv) {
-            $cv->photo_content = $cv->photo_path ? Response::file(public_path('photos/'.$cv->photo_path)) : null;
+            $cv->photo_content = $cv->photo_path ? Response::file(public_path($cv->photo_path)) : null;
             return $cv;
         });
 
@@ -57,7 +59,7 @@ class CvController extends Controller
         if ($request->hasFile('photo')) {
             $photo = $request->file('photo');
             $photoName = date('d-m-Y-H-i-s') . "_" .$fields['email'] . '.' . $photo->getClientOriginalExtension();
-            $photo->move(public_path('photos_user'), $photoName);
+            $photo->move('photos_user/', $photoName);
         }
 
 //        if($photoprofile = $request->file('photo')) {
@@ -79,7 +81,7 @@ class CvController extends Controller
             'linkedin' => isset($fields['linkedin']) ? $fields['linkedin'] : null,
             'instagram' => isset($fields['instagram']) ? $fields['instagram'] : null,
             'twitter' => isset($fields['twitter']) ? $fields['twitter'] : null,
-            'photo_path' => isset($photoName) ? $photoName : null, // Chemin de la photo si téléchargée
+            'photo_path' => isset($photoName) ? 'photos_user/'.$photoName : null, // Chemin de la photo si téléchargée
         );
 
 
@@ -162,7 +164,7 @@ class CvController extends Controller
      * Update the specified resource in storage.
      */
 
-    public function update(Request $request, Cv $cv)
+    public function update(Request $request, $uuid)
     {
         // Valider les données de la requête
         $validatedData = $request->validate([
@@ -176,24 +178,37 @@ class CvController extends Controller
             'linkedin' => 'nullable|url',
             'instagram' => 'nullable|url',
             'twitter' => 'nullable|url',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'occupations' => 'required|array',
             'occupations.*.datedebut' => 'required|date',
             'occupations.*.datefin' => 'nullable|date',
             'occupations.*.occupation' => 'required|string',
         ]);
 
+
+        $cv = Cv::find($uuid);
+
+        if ($request->hasFile('photo')) {
+
+            $photo = $request->file('photo');
+            $photoName = date('d-m-Y-H-i-s') . "_" .$validatedData['email'] . '.' . $photo->getClientOriginalExtension();
+            $photo->move('photos_user/', $photoName);
+        }
+
         // Mettre à jour les données du CV
+
         $cv->update([
             'name' => $validatedData['name'],
             'surname' => $validatedData['surname'],
             'email' => $validatedData['email'],
-            'tel' => $validatedData['tel'],
-            'dob' => $validatedData['dob'],
-            'git' => $validatedData['git'],
-            'facebook' => $validatedData['facebook'],
-            'linkedin' => $validatedData['linkedin'],
-            'instagram' => $validatedData['instagram'],
-            'twitter' => $validatedData['twitter'],
+            'tel' => isset($validatedData['tel']) ? $validatedData['tel'] : null,
+            'dob' => isset($validatedData['dob']) ? $validatedData['dob'] : null,
+            'git' => isset($validatedData['git']) ? $validatedData['git'] : null,
+            'facebook' => isset($validatedData['facebook']) ? $validatedData['facebook'] : null,
+            'linkedin' => isset($validatedData['linkedin']) ? $validatedData['linkedin'] : null,
+            'instagram' => isset($validatedData['instagram']) ? $validatedData['instagram'] : null,
+            'twitter' => isset($validatedData['twitter']) ? $validatedData['twitter'] : null,
+            'photo_path' => isset($validatedData['photo']) ? $photoName : null
         ]);
 
         // Supprimer les occupations existantes
@@ -213,13 +228,24 @@ class CvController extends Controller
      * Remove the specified resource from storage.
      */
 
-    public function destroy(Cv $cv)
+    public function destroy($uuid)
     {
         // Supprimer le CV de la base de données
-        $cv->delete();
+        $cv = Cv::find($uuid);
 
+        try {
+            if (isset($cv['photo_path'])) {
+                File::delete(public_path('photos_user/' . $cv['photo_path']));
+                $cv->delete();
+                return response()->json(['message' => 'CV deleted successfully']);
+            } else {
+                $cv->delete();
+                return response()->json(['message' => 'CV deleted successfully']);
+            }
+        }catch (error) {
+            return response()->json(['message' => 'CV was not deleted']);
+        }
         // Retourner une réponse JSON indiquant que le CV a été supprimé avec succès
-        return response()->json(['message' => 'CV deleted successfully']);
     }
 
 
