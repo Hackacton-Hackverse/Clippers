@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="AutoImportSettings">
-    <option name="autoReloadType" value="SELECTIVE" />
-  </component>
   <component name="ChangeListManager">
-    <list default="true" id="105b9475-d23e-485e-bb5a-88e664ef8696" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/getjob-backend/app/Http/Controllers/CvController.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/getjob-backend/app/Http/Controllers/CvController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/getjob-backend/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/getjob-backend/routes/api.php" afterDir="false" />
-    </list>
+    <list default="true" id="105b9475-d23e-485e-bb5a-88e664ef8696" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -28,7 +20,7 @@
     <execution />
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/frontend" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -413,28 +405,24 @@
       <path value="$PROJECT_DIR$/backend/getJobBackend/vendor/theseer/tokenizer" />
     </include_path>
   </component>
-  <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 5
-}</component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 5
+}]]></component>
   <component name="ProjectId" id="2fLT6duYdXczwg3JwFj7eqgKZtX" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "master",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
-  <component name="RunManager" selected="Pest./home/davy_shadow/Documents/mes projets/hackreverse/Get job task/backend/getjob-backend/vendor/pestphp/pest/bin/pest">
+}]]></component>
+  <component name="RunManager">
     <configuration name="/home/davy_shadow/Documents/mes projets/hackreverse/Get job task/backend/getJobBackend/vendor/autoload.php" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
       <TestRunner configuration_file="$PROJECT_DIR$/backend/getJobBackend/phpunit.xml" scope="XML" use_alternative_configuration_file="true" />
       <method v="2" />
@@ -443,11 +431,17 @@
       <option name="pestRunnerSettings">
         <PestRunner configuration_file="$PROJECT_DIR$/backend/getJobBack/phpunit.xml" scope="ConfigurationFile" use_alternative_configuration_file="true" />
       </option>
+      <option name="runnerSettings">
+        <PhpTestRunnerSettings configuration_file="$PROJECT_DIR$/backend/getJobBack/phpunit.xml" scope="ConfigurationFile" use_alternative_configuration_file="true" />
+      </option>
       <method v="2" />
     </configuration>
     <configuration name="/home/davy_shadow/Documents/mes projets/hackreverse/Get job task/backend/getjob-backend/vendor/pestphp/pest/bin/pest" type="PestRunConfigurationType">
       <option name="pestRunnerSettings">
         <PestRunner configuration_file="$PROJECT_DIR$/backend/getjob-backend/phpunit.xml" scope="ConfigurationFile" use_alternative_configuration_file="true" />
+      </option>
+      <option name="runnerSettings">
+        <PhpTestRunnerSettings configuration_file="$PROJECT_DIR$/backend/getjob-backend/phpunit.xml" scope="ConfigurationFile" use_alternative_configuration_file="true" />
       </option>
       <method v="2" />
     </configuration>
@@ -468,9 +462,6 @@
       <option name="presentableId" value="Default" />
       <updated>1713579185929</updated>
       <workItem from="1713579189718" duration="355000" />
-      <workItem from="1713629025762" duration="1598000" />
-      <workItem from="1713633246117" duration="30000" />
-      <workItem from="1713649043247" duration="32000" />
     </task>
     <servers />
   </component>

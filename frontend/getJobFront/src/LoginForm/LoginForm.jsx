@@ -22,7 +22,7 @@ function LoginForm  ({onLogin})  {
         e.preventDefault();
         //recuperer l'adresse mail au cas ou le username est correct et l'envoyer dans le front
         const {email, password} = formdata
-        let loginurl = 'http://127.0.0.1:8000/api/login'
+        let loginurl = 'http://127.0.0.1:8000/api/user/login'
 
         let data = {
             email: email,
