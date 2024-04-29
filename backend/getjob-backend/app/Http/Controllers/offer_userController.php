@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\offer_user;
+use App\Models\Offer_user;
 use Illuminate\Http\Request;
 
 class offer_userController extends Controller
@@ -20,7 +20,17 @@ class offer_userController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $fields = $request->validate([
+            'id_offer' => 'required|numeric',
+            'uuid_user' => 'required|string'
+        ]);
+
+        $offrechoose = array(
+            'id_offer' => $fields['id_offer'],
+            'uuid_user' => $fields['uuid_user']
+        );
+
+        return Offer_user::create($offrechoose);
     }
 
     /**
@@ -42,8 +52,10 @@ class offer_userController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(offer_user $offer_user)
+    public function destroy($uuid)
     {
-        //
+        $offre_user = Offer_user::find($uuid);
+
+        return $offre_user->delete();
     }
 }

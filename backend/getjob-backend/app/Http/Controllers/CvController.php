@@ -59,18 +59,19 @@ class CvController extends Controller
     public function store(Request $request)
     {
         $fields = $request->validate([
-            'name'=> 'required|string',
+            'name' => 'required|string',
             'uuid_user' => 'required|string',
             'surname' => 'string',
             'email'=> 'required|string|unique:cvs,email',
             'tel' => 'nullable|numeric',
             'dob'=> 'required|date',
-            'git' => 'nullable|url',
-            'facebook' => 'nullable|url',
-            'linkedin' => 'nullable|url',
-            'instagram' => 'nullable|url',
-            'twitter' => 'nullable|url',
-            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Validation pour le fichier photo
+            'git' => 'nullable|string',
+            'wakatime' => 'nullable|string',
+            'facebook' => 'nullable|string',
+            'linkedin' => 'nullable|string',
+            'instagram' => 'nullable|string',
+            'twitter' => 'nullable|string',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:4096', // Validation pour le fichier photo
             'occupations' => 'array',
             'occupations.*.datedebut' => 'required|date',
             'occupations.*.datefin' => 'nullable|date',
@@ -124,10 +125,6 @@ class CvController extends Controller
                 ]);
             }
         }
-
-
-
-
 
         return $cv;
         // Retournez une réponse appropriée, par exemple une redirection ou un message de réussite

@@ -1,6 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="JetClientState">
+    <option name="draftsState">
+      <draftsState>
+        <option name="requests">
+          <list>
+            <requestState>
+              <option name="body">
+                <bodyState>
+                  <option name="raw" value="{&#10;  &quot;id_offer&quot;: 1,&#10;  &quot;uuid_user&quot;: &quot;9be52a31-82fe-476e-b639-abf08e2a3a68&quot;&#10;}" />
+                  <option name="type" value="JSON" />
+                </bodyState>
+              </option>
+              <option name="headers">
+                <list>
+                  <headerState>
+                    <option name="key" value="Content-Type" />
+                    <option name="value" value="application/json" />
+                  </headerState>
+                  <headerState>
+                    <option name="key" value="Accept" />
+                    <option name="value" value="application/json" />
+                  </headerState>
+                </list>
+              </option>
+              <option name="id" value="6dd06ff9-01d0-4341-ba59-603b48301247" />
+              <option name="method" value="DELETE" />
+              <option name="name" value="Draft" />
+              <option name="url" value="http://127.0.0.1:8000/api/offeruser/9bec9d95-49cd-4b39-9745-aeafffd9179b" />
+            </requestState>
+          </list>
+        </option>
+      </draftsState>
+    </option>
     <option name="id" value="049545ad-8e00-4302-aa90-ee4738aec60c" />
   </component>
 </project>

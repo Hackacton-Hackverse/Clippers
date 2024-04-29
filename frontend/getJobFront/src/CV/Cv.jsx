@@ -2,6 +2,7 @@ import{ useEffect, useState, useRef } from 'react';
 import "./Cv.css"
 import Navbar from "../Navbar/Navbar.jsx";
 import axios from "axios";
+import Cookies from 'js-cookie';
 
 function Cv() {
     const [file, setFile] = useState();
@@ -15,7 +16,7 @@ function Cv() {
     }])
     const [formdata, setFormdata] = useState({
         name:'',
-        uuid_user:"9bd6c300-a2c9-4e5e-b34b-a502130867fd",
+        uuid_user:"9be52a31-82fe-476e-b639-abf08e2a3a68",
         surname:'',
         email: '',
         tel:'',
@@ -111,17 +112,63 @@ function Cv() {
 
     const save = async (e) => {
         e.preventDefault();
-        console.log(formdata.photo)
+
         try {
-            let  response =   await axios.post('http://127.0.0.1:8000/api/add', formdata);
-            alert('cv save sucessfully')
-        }catch (error){
-            alert('data was not save')
+            const formData = new FormData();
+
+            // Ajoutez les champs texte s'ils ont une valeur définie
+            if (formdata.name) formData.append('name', formdata.name);
+            if (formdata.uuid_user) formData.append('uuid_user', formdata.uuid_user);
+            if (formdata.surname) formData.append('surname', formdata.surname);
+            if (formdata.email) formData.append('email', formdata.email);
+            if (formdata.tel) formData.append('tel', formdata.tel);
+            if (formdata.dob) formData.append('dob', formdata.dob);
+            if (formdata.git) formData.append('git', formdata.git);
+            if (formdata.wakatime) formData.append('wakatime', formdata.wakatime);
+            if (formdata.facebook) formData.append('facebook', formdata.facebook);
+            if (formdata.linkedin) formData.append('linkedin', formdata.linkedin);
+            if (formdata.instagram) formData.append('instagram', formdata.instagram);
+            if (formdata.twitter) formData.append('twitter', formdata.twitter);
+
+            // Ajoutez le fichier photo s'il est défini
+            if (file) formData.append('photo', file);
+
+            // Ajoutez les occupations (tableau d'objets) s'ils sont définis
+            if (formdata.occupations && formdata.occupations.length > 0) {
+                formdata.occupations.forEach((occupation, index) => {
+                    if (occupation.datedebut) formData.append(`occupations[${index}][datedebut]`, occupation.datedebut);
+                    if (occupation.datefin) formData.append(`occupations[${index}][datefin]`, occupation.datefin);
+                    if (occupation.occupation) formData.append(`occupations[${index}][occupation]`, occupation.occupation);
+                });
+            }
+
+            const response = await axios.post('http://127.0.0.1:8000/api/add', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data', // Assurez-vous de définir le type de contenu sur 'multipart/form-data'
+                },
+            });
+
+            const cvUuid = response.data.uuid;
+            alert(cvUuid)
+
+            // Stocker l'UUID dans les cookies
+            Cookies.set('cv_uuid', cvUuid);
+
+            console.log(response.data);
+            // Faites quelque chose avec la réponse réussie
+        } catch (error) {
+            if (error.response && error.response.status === 422) {
+                console.log('Validation failed:', error.response.data);
+                // Gérez les erreurs de validation renvoyées par le serveur
+            } else {
+                console.error('Request failed:', error.message);
+                // Gérez d'autres types d'erreurs
+            }
         }
+    };
 
-            // Redirigez ou affichez un message de succès ici
 
-    }
+
 
     useEffect(() => {
         if (!file) {
@@ -153,7 +200,17 @@ function Cv() {
 
                         </div>
                     </div>
-
+                    <div className="input-box">
+                        <span>uuid_user</span>
+                        <input
+                            type='text'
+                            name='uuid_user'
+                            placeholder='uuid_user'
+                            required
+                            value={formdata.uuid_user}
+                            onChange={handleChange}
+                        />
+                    </div>
                     <div className="input-box">
                         <span>name</span>
                         <input

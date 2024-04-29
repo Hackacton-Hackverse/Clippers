@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\CvController;
 use \App\Http\Controllers\OffreController;
+use \App\Http\Controllers\offer_userController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +30,10 @@ Route::get('/offer/get/{id}', [OffreController::class, 'show']);
 Route::get('/offer/search/{name}',[OffreController::class,'search']);
 Route::get('/offer/{uuid_admin}',[OffreController::class,'showjobAdmin']);
 Route::delete('/offer/{id}',[OffreController::class,'destroy']);
+
+
+Route::post('/offeruser',[offer_userController::class, 'store'] );
+Route::delete('/offeruser/{uuid}',[offer_userController::class, 'destroy']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
