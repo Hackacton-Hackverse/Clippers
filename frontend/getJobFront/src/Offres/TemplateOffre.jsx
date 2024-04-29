@@ -10,7 +10,7 @@ function TemplateOffre(props) {
                     </div>
                     <div className="description-job">
                         <h3 className="title-job">{props.title}</h3>
-                        <p className="date-online-kob">{props.date}</p>
+                        <p className="date-online-job">{props.date}</p>
                         <p className="small-info">{props.description}</p>
                         <div className="Postuler">
                             <button>

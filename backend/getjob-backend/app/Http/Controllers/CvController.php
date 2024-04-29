@@ -22,11 +22,33 @@ class CvController extends Controller
 
         // Ajouter le contenu de la photo à chaque CV
         $cvs->transform(function ($cv) {
-            $cv->photo_content = $cv->photo_path ? Response::file(public_path($cv->photo_path)) : null;
+            $cv->photo_content = $cv->photo_path ? Response::file(public_path('/photos_user/'.$cv->photo_path)) : null;
+            return $cv;
+        });
+        // Récupérer tous les CV avec les occupations
+        $cvs = Cv::with('occupations')->get();
+
+        // Ajouter le contenu de la photo à chaque CV
+        $cvs->transform(function ($cv) {
+            if ($cv->photo_path) {
+                // Lire le contenu de l'image
+                $photoContent = file_get_contents(public_path('photos_user/' . $cv->photo_path));
+                // Convertir le contenu de l'image en base64
+                $photoContentBase64 = base64_encode($photoContent);
+                // Retourner le contenu de l'image en base64
+                $cv->photo_content = $photoContentBase64;
+            } else {
+                // Si aucun chemin de photo n'est spécifié, définir le contenu de l'image sur null
+                $cv->photo_content = null;
+            }
+            // Supprimer le chemin de la photo pour des raisons de sécurité
+            unset($cv->photo_path);
             return $cv;
         });
 
+
         return $cvs;
+
     }
 
 
@@ -107,7 +129,7 @@ class CvController extends Controller
 
 
 
-        return $cv->uuid;
+        return $cv;
         // Retournez une réponse appropriée, par exemple une redirection ou un message de réussite
     }
 

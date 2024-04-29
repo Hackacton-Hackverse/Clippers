@@ -15,7 +15,7 @@ function Cv() {
     }])
     const [formdata, setFormdata] = useState({
         name:'',
-        uuid_user:'9bd77449-91ae-40a2-b44d-4f8f80298dd0',
+        uuid_user:"9bd6c300-a2c9-4e5e-b34b-a502130867fd",
         surname:'',
         email: '',
         tel:'',
@@ -112,9 +112,13 @@ function Cv() {
     const save = async (e) => {
         e.preventDefault();
         console.log(formdata.photo)
+        try {
             let  response =   await axios.post('http://127.0.0.1:8000/api/add', formdata);
-        console.log(response);
-            console.log('Data saved successfully');
+            alert('cv save sucessfully')
+        }catch (error){
+            alert('data was not save')
+        }
+
             // Redirigez ou affichez un message de succès ici
 
     }

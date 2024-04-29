@@ -15,6 +15,7 @@ return new class extends Migration
             $table->uuid()->primary();
             $table->unsignedBigInteger('id_offer');
             $table->uuid('uuid_user');
+            $table->string('state')->default('pending');
             $table->timestamps();
 
             $table->unique(['id_offer', 'uuid_user']);
