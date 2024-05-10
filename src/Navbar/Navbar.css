@@ -1,0 +1,43 @@
+.nav-item{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    padding-top: 5px;
+    cursor: pointer;
+}
+
+.nav-item:hover{
+    background-color: rgba(195, 195, 195, 0.66);
+}
+
+.nav-icon{
+    position: relative;
+    font-size: 40px;
+}
+
+.nav-item.active {
+    background-color: #e0e0e0; /* Couleur de fond pour l'élément sélectionné */
+    /* Ajoutez d'autres styles si nécessaire */
+}
+
+@media (max-width: 700px) {
+    .navbar-container{
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .nav-item{
+        display: flex;
+        flex-direction: row;
+        font-size: 20px;
+        padding: 5px;
+    }
+
+    .nav-icon{
+        font-size: 30px;
+    }
+}

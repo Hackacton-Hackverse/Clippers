@@ -1,0 +1,166 @@
+.discussion-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    /*background-image: url("/public/backgroundtest.jpeg");*/
+    /*background-size: 800px;*/
+    background-color: transparent;
+}
+
+.discussion-content {
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+/* Styles pour les messages envoyés */
+.message-sent {
+    display: flex;
+    align-items: flex-start; /* Alignement du contenu au début */
+    justify-content: flex-end; /* Justification du contenu à droite */
+    margin-bottom: 10px; /* Espacement entre les messages */
+    margin-right: 30px;
+}
+
+.message-sent .profile-picture {
+    width: 40px; /* Taille de la photo de profil */
+    height: auto; /* Taille de la photo de profil */
+}
+
+.message-sent .message-content {
+    position: relative;
+    background-color: #DCF8C6; /* Couleur de fond du message envoyé */
+    padding: 10px;
+    border-radius: 10px;
+    max-width: 70%; /* Largeur maximale du message */
+    margin-right: 15px;
+}
+
+.message-received .message-content::before {
+    content: "";
+    position: absolute;
+    top: 10px; /* Ajustement de la position verticale */
+    left: -8px; /* Ajustement de la position horizontale */
+    width: 0;
+    height: 0;
+    border-top: 8px solid transparent; /* Taille du triangle */
+    border-right: 8px solid #F0F0F0; /* Couleur du triangle */
+    border-bottom: 8px solid transparent; /* Taille du triangle */
+}
+
+/* Styles pour les messages reçus */
+.message-received {
+    display: flex;
+    align-items: flex-start; /* Alignement du contenu au début */
+    margin-bottom: 10px; /* Espacement entre les messages */
+    margin-left: 30px;
+}
+
+.message-received .profile-picture {
+    width: 40px; /* Taille de la photo de profil */
+    height: auto; /* Taille de la photo de profil */
+    margin-right: 10px; /* Espacement entre la photo de profil et le message */
+}
+
+.message-received .message-content {
+    position: relative;
+    background-color: #F0F0F0; /* Couleur de fond du message reçu */
+    padding: 10px;
+    border-radius: 10px;
+    max-width: 70%; /* Largeur maximale du message */
+    margin-left: 15px;
+}
+
+.message-sent .message-content::before {
+    content: "";
+    position: absolute;
+    top: 10px; /* Ajustement de la position verticale */
+    right: -8px; /* Ajustement de la position horizontale */
+    width: 0;
+    height: 0;
+    border-top: 8px solid transparent; /* Taille du triangle */
+    border-left: 8px solid  #DCF8C6; /* Couleur du triangle */
+    border-bottom: 8px solid transparent; /* Taille du triangle */
+}
+
+
+.container-profile-picture{
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+
+
+.header-image{
+    width: 40px;
+    height: 40px;
+    overflow: hidden;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.header-image img{
+    width: 40px;
+    height: auto;
+}
+.header-name {
+    font-weight: bold;
+    margin-right: 10px;
+    padding-left: 30px;
+}
+.header-discussion{
+    position: sticky;
+    display: flex;
+    top: 0;
+    background-color: #888888;
+    margin-bottom: 5px;
+    height: 90px;
+    align-items: center;
+    z-index: 10
+}
+
+.footer-discussion {
+    position: sticky; /* Modifié de 'fixed' à 'sticky' */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 90px;
+    background-color: rgb(167, 167, 167);
+    bottom: 0;
+    padding: 0 10px;
+}
+
+.input-message {
+    width: 100%;
+    height: 30px;
+    border-radius: 5px; /* Arrondit les coins de l'input */
+    padding: 0 10px; /* Ajoute un espacement interne */
+}
+
+.send-icon{
+    padding-right: 10px ;
+    padding-left: 10px  ;
+}
+
+.back-icon-container{
+    margin-left: 20px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.back-icon{
+    font-size: 30px;
+    color: rgba(40, 40, 40, 0.9);
+}
+
+@media (max-width: 700px) {
+    .message-sent{
+        margin-right: 10px;
+    }
+    .message-received{
+        margin-left: 10px;
+    }
+}
+

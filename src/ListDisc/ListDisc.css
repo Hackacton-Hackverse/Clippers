@@ -1,0 +1,72 @@
+.type-chat{
+    display: flex;
+    align-items: center;
+    font-size: 50px;
+    border-bottom: 5px solid;
+    padding-left: 10px;
+    position: sticky;
+    top: 0;
+    background: #888888;
+}
+
+.templateSingle{
+    display: flex;
+    background-color: white;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+.templateSingle:hover{
+    background-color: rgba(195, 195, 195, 0.66);
+}
+
+.container-photo-profile{
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.photo-profile{
+    width: 50px;
+    height: auto;
+}
+
+.disc-info{
+    padding: 10px;
+}
+
+.end-contact{
+    display: flex;
+    width: 100%;
+    height: auto;
+    justify-content: center;
+    align-items: center;
+}
+
+.separation-contact{
+    height: 1px;
+    width: 70%;
+}
+
+.templateSingle.selected {
+    background-color: #e0e0e0; /* Couleur de fond pour l'élément sélectionné */
+}
+
+.container-list-chat{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.name-destinataire{
+    font-size: 15px;
+    font-weight: bold;
+}
+
+@media (max-width: 700px){
+    .type-chat{
+        display: none;
+    }
+}
