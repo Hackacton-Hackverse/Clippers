@@ -12,7 +12,7 @@ class MessageController extends Controller
      */
     public function index()
     {
-        //
+        return message::with(['conversation','sender','receiver','group'])->get();
     }
 
     /**
@@ -20,30 +20,42 @@ class MessageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $fields = $request->validate([
+            'message'=>'required|string',
+            'sender_id' => 'required|integer|exists:users,id',
+            'receiver_id' => 'sometimes|integer|exists:users,id',
+            'group_id' => 'sometimes|integer|exists:users,id',
+            'conversation_id' => 'sometimes|integer|exists:conversations,id',
+        ]);
+
+        return response()->json(message::create($fields),201);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(message $message)
+    public function show($id)
     {
-        //
+        return message::with(['conversation','sender','receiver','group'])->findOrFail($id);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, message $message)
+    public function update($id, Request $request)
     {
-        //
+        $message = message::findOrFail($id);
+
+        $fields = $request->validate([
+            'message'=>'required|string'
+        ]);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(message $message)
+    public function destroy($id)
     {
-        //
+        return response()->json(message::destroy($id),204);
     }
 }

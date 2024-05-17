@@ -4,6 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
+
 
 class Conversation extends Model
 {
@@ -28,8 +32,8 @@ class Conversation extends Model
             ->with(['messages' => function ($query) use ($userId) {
                 $query->select('messages.*', \DB::raw(
                     'CASE
-                WHEN sender_id = '.$userId.' THEN CONCAT("messageSent: ", message)
-                ELSE CONCAT("messageReceive: ", message)
+                WHEN sender_id = '.$userId.' THEN "" || message
+                ELSE "" || message
             END AS content'
                 ), \DB::raw(
                     'CASE
@@ -43,19 +47,23 @@ class Conversation extends Model
             ->get()
             ->map(function ($conversation) use ($userId) {
                 $destinataire = null;
+                $destinataireId = null;
                 $profilePicture = null;
                 $messages = [];
 
-                $conversation->messages->map(function ($message) use (&$destinataire, &$profilePicture, &$messages, $userId) {
+                $conversation->messages->map(function ($message) use (&$destinataire, &$destinataireId, &$profilePicture, &$messages, $userId) {
                     if ($message->sender_id == $userId) {
                         $destinataire = $message->receiver->name;
+                        $destinataireId = $message->receiver->id;
                         $profilePicture = $message->receiver->avatar;
                     } else {
                         $destinataire = $message->sender->name;
+                        $destinataireId = $message->sender->id;
                         $profilePicture = $message->sender->avatar;
                     }
 
                     $messages[] = [
+                        'id' => $message->id, // Ajout de l'ID du message
                         'content' => $message->content,
                         'isSent' => $message->isSent,
                     ];
@@ -63,10 +71,12 @@ class Conversation extends Model
 
                 return [
                     'destinataire' => $destinataire,
+                    'destinataireId' => $destinataireId,
                     'profilePicture' => $profilePicture,
                     'messages' => $messages,
                 ];
             });
     }
+
 
 }

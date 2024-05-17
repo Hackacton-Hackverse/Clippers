@@ -16,6 +16,8 @@ return new class extends Migration
             $table->foreignId('user_id1')->constrained('users')->onUpdate('cascade');
             $table->foreignId('user_id2')->constrained('users')->onUpdate('cascade');
             $table->timestamps();
+
+            $table->unique(['user_id1','user_id2']);
         });
     }
 

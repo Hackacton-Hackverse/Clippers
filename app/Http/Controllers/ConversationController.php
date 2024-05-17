@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Conversation;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class ConversationController extends Controller
 {
@@ -15,17 +17,19 @@ class ConversationController extends Controller
         return Conversation::with('messages')->get();
     }
 
-    public function conversationUser($userId)
-    {
-        $conversations = Conversation::getUserConversations($userId);
-        return response()->json($conversations);
-    }
+
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
+        $fields = $request->validate([
+            "user_id1" => 'required|exists:users,id',
+            "user_id2" => 'required|exists:users,id'
+        ]);
+
+        return response()->json(Conversation::create($fields));
 
     }
 
@@ -34,7 +38,8 @@ class ConversationController extends Controller
      */
     public function show($user_id)
     {
-
+        $conversations = (new \App\Models\Conversation)->getUserConversations($user_id);
+        return response()->json($conversations);
     }
 
     /**
@@ -46,9 +51,9 @@ class ConversationController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified resomessage urce from storage.
      */
-    public function destroy(Conversation $conversation)
+    public function destroy($id)
     {
         //
     }
