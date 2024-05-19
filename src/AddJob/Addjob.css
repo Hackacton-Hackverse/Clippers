@@ -1,0 +1,116 @@
+.Addjob {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  overflow: auto;
+  background: linear-gradient(135deg, #006be6, #28ef32);
+  background-image: url("/background.jpeg");
+  background-size: cover;
+}
+
+.Addjob form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 1rem;
+}
+
+.container-Addjob {
+  display: flex;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background-color: #e1dfdf;
+  filter: drop-shadow(#3c3c3c 1rem 1rem 10px);
+  border-radius: 1rem;
+}
+
+.imageJob {
+  display: flex;
+  justify-content: center;
+  width: 250px;
+  height: 30px;
+  background-color: rgba(202, 144, 75, 0.95);
+  border-radius: 5px;
+}
+
+.paperclip {
+  position: relative;
+  top: 5px;
+}
+
+.set-image {
+  width: 500px;
+  height: 500px;
+  object-fit: cover;
+  min-width: 200px;
+  max-width: 400px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  background-color: white;
+  border-radius: 0 1rem 1rem 0;
+  overflow: hidden;
+}
+
+.imgJob {
+  display: block;
+  width: 100%;
+  height: 500px;
+  object-fit: cover;
+  vertical-align: middle;
+  /*border-radius: 2rem ;*/
+}
+
+.InputBox {
+  position: relative;
+  top: 30px;
+  display: flex;
+  align-items: center;
+  height: 50px;
+  margin-left: 30px;
+  margin-bottom: 10px;
+}
+
+.input-box span {
+  width: 30%; /* Largeur fixe pour les labels */
+  margin-right: 10px; /* Marge à droite des labels */
+}
+
+.InputBox input {
+  height: 30px;
+  width: 70%;
+  border-radius: 5px;
+  border: 1px solid;
+  padding-left: 5px;
+}
+
+.InputBox textarea {
+  height: 30px;
+  width: 60%;
+  border-radius: 5px;
+  border: 1px solid;
+  padding-left: 5px;
+}
+
+.validate {
+  height: 30px;
+  width: 100px;
+  position: relative;
+  top: 30px;
+  border: 1px solid;
+  border-radius: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  background-color: #e1dfdf;
+  filter: drop-shadow(#434343 1rem 1rem 5px);
+  transition: 0.3s;
+}
+
+.validate:hover {
+  color: white;
+  font-size: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  background-color: #413535;
+  filter: drop-shadow(#644040 1rem 1rem 5px);
+}

@@ -1,0 +1,157 @@
+*{
+    margin: 0;
+    padding: 0;
+    text-decoration: 0;
+    list-style: none;
+    box-sizing: border-box;
+}
+body{
+}
+#root{
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+}
+
+.icon{
+    font-size: 50px;
+}
+
+button{
+    cursor: pointer;
+}
+
+@media (max-width: 767px){
+    .container{
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+
+@media (min-width: 992px){
+    .container{
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+
+@media (min-width: 760px) and (max-width: 875px) {
+    .containerimg-job{
+        max-width: 100%;
+    }
+
+    .offers{
+        width: 100%;
+    }
+
+    .offer{
+        width: 100%;
+    }
+}
+
+@media (min-width: 769px){
+    .all-offer{
+        flex-wrap: wrap;
+    }
+
+}
+
+@media (max-width: 1330px) and (min-width: 768px) {
+    .containerimg-job{
+        max-width: 100%;
+    }
+    .offers{
+        width: 50%;
+    }
+    .offer{
+        width: 100%;
+    }
+    .container {
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+
+@media (max-width: 1785px) and (min-width: 1331px){
+    .containerimg-job{
+        max-width: 100%;
+    }
+    .offers{
+        width: 33.3333333333%;
+    }
+    .offer{
+        width: 100%;
+    }
+    .container {
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+
+
+@media (min-width: 1786px){
+    .containerimg-job{
+        max-width: 100%;
+    }
+    .offers{
+        width: 25%;
+    }
+    .offer{
+        width: 100%;
+    }
+    .container {
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+
+@media (max-width: 830px) {
+    .containerimg-job{
+        max-width: 100%;
+    }
+    .offers{
+        width: 100%;
+    }
+    .offer{
+        width: 100%;
+    }
+    .container {
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+
+@media (min-width: 600px) and (max-width: 775px){
+    .containerimg-job{
+        max-width: 100%;
+    }
+    .offers{
+        width: 100%;
+    }
+    .offer{
+        width: 100%;
+    }
+    .container {
+        padding-left: 0;
+        padding-right: 0;
+    }.offers{
+         width: 50%;
+     }
+}
+
+
+::-webkit-scrollbar {
+    width: 10px; /* Largeur de la barre de défilement */
+}
+
+/* Pour le "thumb" (la partie de la barre de défilement que vous faites glisser) */
+::-webkit-scrollbar-thumb {
+    background-color: #888; /* Couleur du "thumb" */
+    border-radius: 6px; /* Bord arrondi du "thumb" */
+}
+
+/* Pour la barre de défilement sur l'axe vertical */
+::-webkit-scrollbar-track {
+    background-color: transparent; /* Couleur de fond de la barre de défilement */
+}
+

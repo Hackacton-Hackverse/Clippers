@@ -1,0 +1,56 @@
+.conversation{
+    display: flex;
+    flex-direction: row;
+    background: url("/public/backgroundtest.jpeg");
+    background-size: auto 4000px;
+}
+
+
+
+.navbar-chat{
+    width: 80px;
+    height: 100vh;
+    background-color: white;
+    border-right: 1px solid;
+}
+
+.listchat{
+    position: relative;
+    width: 500px;
+    height: 100vh;
+    background-color: white;
+}
+
+.discussion {
+    display: none;
+    width: 100%;
+    height: 100vh;
+    background-color: transparent;
+    border: 1px;
+    overflow: auto;
+}
+
+@media (max-width : 1000px) {
+    .conversation{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .navbar-chat{
+        width: 100vw;
+        background-color: #8aba67;
+        height: auto;
+    }
+
+    .listchat{
+        width: 100%;
+    }
+
+    .discussion{
+        display: none;
+        position: absolute;
+        background-image: url("/public/backgroundtest.jpeg");
+        background-size: 2000px;
+        right: 0px;
+    }
+}
