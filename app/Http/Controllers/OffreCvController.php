@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Conversation;
+use App\Models\Cv;
 use App\Models\OffreCv;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class OffreCvController extends Controller
 {
@@ -20,12 +24,28 @@ class OffreCvController extends Controller
      */
     public function store(Request $request)
     {
+        $user_id = Auth::id();
         $fields = $request->validate([
             'offer_id'=>'required|integer|exists:offres,id',
-            'cv_id' => 'required|integer|exists:cvs,id'
         ]);
+        $fields['user_id'] = $user_id;
 
-        return response()->json(OffreCv::create($fields),201) ;
+        $cv = Cv::where('user_id', $fields['user_id'])->first();
+        if ($cv === null){
+            return response()->json("you don't have any cv",422);
+        }else{
+            $fields['cv_id'] = $cv->id;
+            $user_id1 = $fields['user_id'];
+            $offrecv= OffreCv::with('offre')->find((OffreCv::create($fields))->id);
+            $user_id2 = $offrecv->offre->user_id;
+            $conversation = [
+                'user_id1'=>$user_id1,
+                'user_id2' =>$user_id2
+            ];
+            Conversation::create($conversation);
+            return response()->json($offrecv,201) ;
+        }
+
     }
 
     /**

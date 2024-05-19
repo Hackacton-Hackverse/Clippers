@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\message;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MessageController extends Controller
 {
@@ -20,14 +21,14 @@ class MessageController extends Controller
      */
     public function store(Request $request)
     {
+        $sender_id = Auth::id();
         $fields = $request->validate([
             'message'=>'required|string',
-            'sender_id' => 'required|integer|exists:users,id',
             'receiver_id' => 'sometimes|integer|exists:users,id',
             'group_id' => 'sometimes|integer|exists:users,id',
             'conversation_id' => 'sometimes|integer|exists:conversations,id',
         ]);
-
+        $fields['sender_id'] = $sender_id;
         return response()->json(message::create($fields),201);
     }
 

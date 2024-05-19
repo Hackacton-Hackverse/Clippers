@@ -29,6 +29,7 @@ class UserController extends Controller
         return response()->json([
             'access_token' => $token,
             'token_type' => 'Bearer',
+            'id' => $user->id
         ],201);
     }
 
@@ -71,4 +72,37 @@ class UserController extends Controller
             'email' => $user->email,
         ]);
     }
+    
+    // UserController.php
+
+    public function getUserFromToken(Request $request)
+    {
+    	$user = $request->user();
+
+	    if ($user) {
+		return response()->json([
+		    'id' => $user->id,
+		    'name' => $user->name,
+		    'email' => $user->email,
+		]);
+	    } else {
+		return response()->json(['message' => 'Token invalide'], 401);
+	    }
+    }
+
+
+	public function verifyToken(Request $request)
+	{
+		$user = $request->user();
+
+		if ($user) {
+		    return response()->json([
+		        'id' => $user->id,
+		        'name' => $user->name,
+		        'email' => $user->email,
+		    ]);
+		} else {
+		    return response()->json(['message' => 'Token invalide'], 401);
+		}
+	}
 }

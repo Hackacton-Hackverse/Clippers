@@ -46,12 +46,14 @@ class Conversation extends Model
             ->orderBy('updated_at', 'desc')
             ->get()
             ->map(function ($conversation) use ($userId) {
+                $idconversation=null;
                 $destinataire = null;
                 $destinataireId = null;
                 $profilePicture = null;
                 $messages = [];
 
-                $conversation->messages->map(function ($message) use (&$destinataire, &$destinataireId, &$profilePicture, &$messages, $userId) {
+                $conversation->messages->map(function ($message) use (&$idconversation, &$destinataire, &$destinataireId, &$profilePicture, &$messages, $userId) {
+                    $idconversation = $message->conversation_id;
                     if ($message->sender_id == $userId) {
                         $destinataire = $message->receiver->name;
                         $destinataireId = $message->receiver->id;
@@ -70,6 +72,7 @@ class Conversation extends Model
                 });
 
                 return [
+                    'conversation_id' => $idconversation,
                     'destinataire' => $destinataire,
                     'destinataireId' => $destinataireId,
                     'profilePicture' => $profilePicture,

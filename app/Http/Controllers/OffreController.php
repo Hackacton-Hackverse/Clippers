@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Offre;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 
 class OffreController extends Controller
@@ -27,16 +28,17 @@ class OffreController extends Controller
      */
     public function store(Request $request)
     {
+        $user_id = Auth::id();
         $fields = $request->validate([
             'name' => 'required|string',
             'description' => 'required|string',
             'lienphoto' => 'required|image|max:4096',
-            'user_id' => 'required|integer|exists:users,id'
         ]);
-
+        $fields['user_id'] = $user_id;
         $photoName = date('d-m-Y-H-i-s') . "-" . $fields['name'] . $fields['user_id'].'.'.$fields['lienphoto']->getClientOriginalExtension();
         $fields['lienphoto']->move('photo_offre/',$photoName);
         $fields['lienphoto'] = $photoName;
+
 
         $offre = Offre::create($fields);
         $offre->lienphoto = asset('photo_offre/'.$offre->lienphoto);

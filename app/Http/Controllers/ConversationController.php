@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Conversation;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
 class ConversationController extends Controller
@@ -14,7 +15,9 @@ class ConversationController extends Controller
      */
     public function index()
     {
-        return Conversation::with('messages')->get();
+        $user_id = Auth::id();
+        $conversations = (new \App\Models\Conversation)->getUserConversations($user_id);
+        return response()->json($conversations);
     }
 
 
@@ -24,10 +27,11 @@ class ConversationController extends Controller
      */
     public function store(Request $request)
     {
+        $user_id1 = Auth::id();
         $fields = $request->validate([
-            "user_id1" => 'required|exists:users,id',
             "user_id2" => 'required|exists:users,id'
         ]);
+        $fields['user_id1'] = $user_id1;
 
         return response()->json(Conversation::create($fields));
 
@@ -36,10 +40,9 @@ class ConversationController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($user_id)
+    public function show()
     {
-        $conversations = (new \App\Models\Conversation)->getUserConversations($user_id);
-        return response()->json($conversations);
+
     }
 
     /**

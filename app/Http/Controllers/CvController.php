@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\File;
 use function Laravel\Prompts\error;
+use Illuminate\Support\Facades\Auth;
 
 class CvController extends Controller
 {
@@ -22,6 +23,7 @@ class CvController extends Controller
                 $cv->photo_path = asset('photos_user/'.$cv->photo_path);
             }
         }
+        return $cvs;
     }
 
     /**
@@ -31,7 +33,6 @@ class CvController extends Controller
     {
         $fields = $request->validate([
             'name' => 'required|string',
-            'uuid_user' => 'required|integer',
             'surname' => 'string',
             'email'=> 'required|string|unique:cvs,email',
             'tel' => 'nullable|numeric',
@@ -49,6 +50,8 @@ class CvController extends Controller
             'occupations.*.occupation' => 'required|string',
         ]);
 
+        $user_id = $userId = Auth::id();
+
         $photoName = null;
         if ($request->hasFile('photo')) {
             $photo = $request->file('photo');
@@ -59,7 +62,7 @@ class CvController extends Controller
         $cvData = [
             'name' => $fields['name'],
             'surname' => $fields['surname'] ?? null,
-            'user_id' => $fields['user_id'],
+            'user_id' => $user_id,
             'email' => $fields['email'],
             'dob' => $fields['dob'],
             'tel' => $fields['tel'] ?? null,
@@ -90,7 +93,7 @@ class CvController extends Controller
             }
         }
 
-        $cv1 = Cv::with(['occupations','user','offrecvs'])->find($cv->id);
+        $cv1 = Cv::with(['occupations','user'])->find($cv->id);
         if(isset($cv['photo_path'])){
             $cv1['photo_path'] = asset('photos_user/'.$cv1['photo_path']);
         }
@@ -101,8 +104,9 @@ class CvController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($id)
+    public function show()
     {
+        $id = Auth::id();
         $cv = Cv::with(['occupations','user','offrecvs'])->findOrFail($id);
         if(isset($cv['photo_path']) && $cv['photo_path'] !== null){
             $cv['photo_path'] = asset('photos_user/'.$cv->photo_path);
@@ -115,7 +119,7 @@ class CvController extends Controller
      */
     public function update($id, Request $request)
     {
-        $cv = Cv::findOrFail($id);
+        $cv = Cv::where();
         $validatedData = $request->validate([
             'name' => 'required|string',
             'surname' => 'required|string',
