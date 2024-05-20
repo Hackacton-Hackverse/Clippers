@@ -1,10 +1,10 @@
-import { useState } from "react";
+import {useEffect, useState} from "react";
 import { useNavigate, useLocation } from 'react-router-dom';
-import axios from "axios";
-import Cookies from 'js-cookie';
 import './RegisterForm.css';
+import axiosInstance, {verifytoken} from "../axios.js";
 
-function RegisterForm({setIsAuthenticated}) {
+// eslint-disable-next-line react/prop-types
+function RegisterForm({setIsAuthenticated, fetchConversations}) {
     const navigate = useNavigate();
     const location = useLocation();
     const [formdata, setFormdata] = useState({
@@ -12,6 +12,12 @@ function RegisterForm({setIsAuthenticated}) {
         email: '',
         password: ''
     });
+
+
+    useEffect(() => {
+        const redirectUrl = location.state?.from?.pathname || '/';
+        verifytoken({setIsAuthenticated,fetchConversations,navigate},redirectUrl)
+    }, [fetchConversations, location.state?.from?.pathname, navigate, setIsAuthenticated]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -21,7 +27,7 @@ function RegisterForm({setIsAuthenticated}) {
     const handleClick = async (e) => {
         e.preventDefault();
         const { username, email, password } = formdata;
-        let registerurl = 'http://127.0.0.1:8000/api/register';
+        let registerurl = '/register';
         let data = {
             name: username,
             email: email,
@@ -30,7 +36,7 @@ function RegisterForm({setIsAuthenticated}) {
         };
 
         try {
-            const response = await axios.post(registerurl, data);
+            const response = await axiosInstance.post(registerurl, data);
 
             if (response.status === 201) {
                 // Enregistrement réussi

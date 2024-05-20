@@ -1,29 +1,34 @@
-import { useState } from 'react';
+import {useEffect, useState} from 'react';
 import { FaLock, FaUser } from "react-icons/fa6";
-import { useNavigate, useLocation, useSearchParams } from "react-router-dom";
-import axios from "axios";
-import Cookies from 'js-cookie';
+import { useNavigate, useLocation} from "react-router-dom";
 import './LoginForm.css'
+import axiosInstance, {verifytoken} from "../axios.js";
 
-function LoginForm({setIsAuthenticated}) {
+// eslint-disable-next-line react/prop-types
+function LoginForm({setIsAuthenticated, fetchConversations}) {
     const navigate = useNavigate();
     const location = useLocation();
-    const [searchParams] = useSearchParams();
-    const redirectUrl = searchParams.get('redirect') || '/';
+    // const [searchParams] = useSearchParams();
+    // const redirectUrl = searchParams.get('redirect') || '/';
     const [formData, setFormData] = useState({
         email: '',
         password: ''
     });
 
+    useEffect(() => {
+        const redirectUrl = location.state?.from?.pathname || '/';
+        verifytoken({setIsAuthenticated,fetchConversations,navigate},redirectUrl)
+    }, [fetchConversations, location.state?.from?.pathname, navigate, setIsAuthenticated]);
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
+
     };
 
     const handleClick = async (e) => {
         e.preventDefault();
         const { email, password } = formData;
-        let loginurl = 'http://127.0.0.1:8000/api/login';
+        let loginurl = '/login';
 
         let data = {
             email: email,
@@ -31,12 +36,13 @@ function LoginForm({setIsAuthenticated}) {
         };
 
         try {
-            const response = await axios.post(loginurl, data);
+            const response = await axiosInstance.post(loginurl, data);
 
             if (response.status === 200) {
                 // Connexion réussie
                 setIsAuthenticated(true)
                 localStorage.setItem('token', response.data.access_token);
+                const redirectUrl = location.state?.from?.pathname || '/';
                 navigate(redirectUrl, { replace: true });
             } else {
                 alert("Une erreur s'est produite lors de la connexion.");

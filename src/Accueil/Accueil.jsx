@@ -1,7 +1,6 @@
 import "./Accueil.css"
 import TemplateOffre from "../Offres/TemplateOffre.jsx";
-import Navbar from "../Navbar/Navbar.jsx";
-import React, {useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import axiosInstance from "../axios.js";
 
 function Accueil() {
@@ -20,7 +19,7 @@ function Accueil() {
 
     useEffect(() => {
         document.title = 'Pipo-app';
-        getoffres();
+        getoffres()
     }, []);
     return (
         <div className="accueil">
@@ -52,11 +51,23 @@ function Accueil() {
                 <div className="lastoffer">
                     <div className="center-title"><h1>Dernières Offres d'Emploi</h1></div>
                     <div className="all-offer">
-                        {offres.map((offres) => (
-                            // eslint-disable-next-line react/jsx-key
-                            <TemplateOffre  offer_id ={offres.id} source={offres.lienphoto} title={offres.name} date={offres.created_at} description={offres.description} />
-                        ))}
+                        {offres.map((offre, index) => {
+                            if (index < 4) {
+                                return (
+                                    <TemplateOffre
+                                        key={offre.id}
+                                        offer_id={offre.id}
+                                        source={offre.lienphoto}
+                                        title={offre.name}
+                                        date={offre.created_at}
+                                        description={offre.description}
+                                    />
+                                );
+                            }
+                            return null; // Ignorer les éléments après la 4e itération
+                        })}
                     </div>
+
                 </div>
             </div>
             <div className="register">

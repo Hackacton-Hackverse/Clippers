@@ -8,27 +8,39 @@ import { NavLink } from 'react-router-dom';
 import {useState} from "react";
 import {MdWork} from "react-icons/md";
 import { IoAddCircle } from "react-icons/io5";
+import {CiLogout} from "react-icons/ci";
+import axiosInstance from "../axios.js";
 
 
 
 
-function Navbar() {
+function Navbar({setIsAuthenticated},isAuthenticated) {
     const [isOpen, setIsOpen] = useState(false);
     const toggle = ()=> setIsOpen(!isOpen)
+
+    const logOut = () => {
+        if(isAuthenticated){
+            axiosInstance.post('/logout')
+                .then(response => {
+                    if (response.status === 200) {
+                        setIsAuthenticated(false);
+                        localStorage.removeItem('token')
+                    }
+                })
+                .catch(error => {
+                    console.error(error);
+                })
+        }
+    }
 
 
     return (
         <>
             <nav className="navbar" style={{ width: isOpen ? "300px" : "70px" }}>
-                <div className="logonomsite">
-                    <span style={{ display: isOpen ? "flex" : "none" }}><img src="/clippers.svg" className="logosite"/></span>
+                <div className="logoMonSite">
+                    <span style={{ display: isOpen ? "flex" : "none" }}><img src="/clippers.svg" className="logoSite"/></span>
                     <div className="menu-button" onClick={toggle} style={{ transform: isOpen ? "rotate(90deg)" : "rotate(180deg)" }}><IoMenuSharp className="menu-icon"/></div>
                 </div>
-                {/*<div className="menu-btn" onClick={toggleMenu}>*/}
-                {/*    <span></span>*/}
-                {/*    <span></span>*/}
-                {/*    <span></span>*/}
-                {/*</div>*/}
                 <div className="nav-item">
                     <ul>
                         <li className="nav-link">
@@ -64,6 +76,22 @@ function Navbar() {
                                 <div style={{display: isOpen ? "block" : "none"}}>create-job</div>
                             </NavLink>
                         </li>
+                        {isAuthenticated
+                            ?
+                            <li className="nav-link" onClick={logOut}>
+                                <div className="navbar-icon"><CiLogout/></div>
+                                <div style={{display: isOpen ? "block" : "none"}}>log-out</div>
+                            </li>
+                            :
+                            <li className="nav-link">
+                                <NavLink to="/login"
+                                         className={`nav-link-item ${({isActive}) => (isActive ? 'active' : '')}`}>
+                                    <div className="navbar-icon"><CgLogIn/></div>
+                                    <div style={{display: isOpen ? "block" : "none"}}>log-out</div>
+                                </NavLink>
+                            </li>
+
+                        }
                     </ul>
                 </div>
                 {/*<div className="profile-manage">*/}

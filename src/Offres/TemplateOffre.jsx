@@ -1,11 +1,6 @@
-import React from 'react';
 import "./TemplateOffre.css"
-import Cookies from 'js-cookie';
 import {useNavigate} from "react-router-dom";
-import axios from "axios";
 import axiosInstance from "../axios.js";
-
-// Récupérer l'UUID du cookie
 
 function TemplateOffre(props) {
     const navigate = useNavigate();
@@ -41,7 +36,7 @@ function TemplateOffre(props) {
             }
                     // Faites quelque chose avec la réponse réussie
         } catch (error) {
-            console.error(error);
+            alert(error.response.data);
             // Gérez l'erreur renvoyée par Axios
         }
 

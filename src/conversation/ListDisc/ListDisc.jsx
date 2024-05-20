@@ -8,13 +8,8 @@ import { useEffect } from "react";
 function ListDisc(props) {
     const a = props.messages;
 
-    useEffect(() => {
-        console.log("a",a[0].conversation_id);
-    }, [a]);
-
 
     const handleClick = (index, profilePicture, name) => {
-        console.log(a.destinataireId)
         props.setSelectedIndex(index);
         props.setSelectedProfilePicture(profilePicture);
         props.setSelectedName(name);
@@ -39,7 +34,8 @@ function ListDisc(props) {
                 )}
             </header>
             <div className="container-list-chat">
-                {a.map((i,message) => (
+                {/* eslint-disable-next-line react/prop-types */}
+                { a && a.map((i,message) => (
                     <div key={message}>
                         <TemplateSingle
                             index={message}

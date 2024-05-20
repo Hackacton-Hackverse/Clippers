@@ -21,14 +21,16 @@ function App() {
 
     const fetchConversations = () => {
             setInterval(() => {
-                axiosInstance.get(`/conversation`)
-                    .then(function (response) {
-                        setMessages(response.data[0]?.messages || []);
-                        setConversations(response.data);
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                    });
+                if(isAuthenticated) {
+                    axiosInstance.get(`/conversation`)
+                        .then(function (response) {
+                            setMessages(response.data[0]?.messages || []);
+                            setConversations(response.data);
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        });
+                }
             }, 1000);
     };
 
@@ -41,7 +43,6 @@ function App() {
                         if (response.status === 200) {
                             console.log('good',response,isAuthenticated)
                             setIsAuthenticated(true);
-                            fetchConversations();
                         }else {
                             console.log('errorrrrr',response)
                             setIsAuthenticated(false);
@@ -58,13 +59,16 @@ function App() {
 
     useEffect(() => {
         document.title = 'Pipo-app';
-    }, []);
+        if(isAuthenticated){
+            fetchConversations();
+        }
+    }, [fetchConversations, isAuthenticated]);
 
 
     return (
         <>
             <div>
-                <Navbar />
+                <Navbar isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated}/>
             </div>
             <div className="route-container">
                 <div>
@@ -86,8 +90,8 @@ function App() {
                                 </ProtectedRoute>
                             }
                         />
-                        <Route path="/login" element={<LoginForm setIsAuthenticated={setIsAuthenticated}/>}/>
-                        <Route path="/register" element={<RegisterForm setIsAuthenticated={setIsAuthenticated}/>}/>
+                        <Route path="/login" element={<LoginForm setIsAuthenticated={setIsAuthenticated } fetchConversations={fetchConversations}/>}/>
+                        <Route path="/register" element={<RegisterForm setIsAuthenticated={setIsAuthenticated} fetchConversations={fetchConversations}/>}/>
                         <Route
                             path="/conversation"
                             element={

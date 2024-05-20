@@ -13,7 +13,6 @@ function Offres(props) {
         try{
             const response = await  axiosInstance.get("/offres")
             setOffres(response.data)
-            console.log(response)
         }catch (error) {
             console.log(error)
         }
