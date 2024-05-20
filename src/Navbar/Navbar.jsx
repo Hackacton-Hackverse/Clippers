@@ -76,24 +76,25 @@ function Navbar({setIsAuthenticated},isAuthenticated) {
                                 <div style={{display: isOpen ? "block" : "none"}}>create-job</div>
                             </NavLink>
                         </li>
+
                         {isAuthenticated
                             ?
-                            <li className="nav-link" onClick={logOut}>
-                                <div className="navbar-icon"><CiLogout/></div>
-                                <div style={{display: isOpen ? "block" : "none"}}>log-out</div>
-                            </li>
-                            :
                             <li className="nav-link">
                                 <NavLink to="/login"
                                          className={`nav-link-item ${({isActive}) => (isActive ? 'active' : '')}`}>
                                     <div className="navbar-icon"><CgLogIn/></div>
-                                    <div style={{display: isOpen ? "block" : "none"}}>log-out</div>
+                                    <div style={{display: isOpen ? "block" : "none"}}>log-in</div>
                                 </NavLink>
                             </li>
+                            :
+                            <li className="nav-link" onClick={logOut}>
+                        <div className="navbar-icon"><CiLogout/></div>
+                        <div style={{display: isOpen ? "block" : "none"}}>log-out</div>
+                    </li>
 
-                        }
-                    </ul>
-                </div>
+                    }
+                </ul>
+            </div>
                 {/*<div className="profile-manage">*/}
                 {/*    <button className="account profile">*/}
                 {/*        <CgProfile className="icon"/>*/}
