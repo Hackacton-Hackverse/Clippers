@@ -49,7 +49,7 @@
     .discussion{
         display: none;
         position: absolute;
-        background-image: url("/public/backgroundtest.jpeg");
+        background-image: url("/backgroundtest.jpeg");
         background-size: 2000px;
         right: 0px;
     }
