@@ -88,9 +88,9 @@ function Navbar({setIsAuthenticated},isAuthenticated) {
                             </li>
                             :
                             <li className="nav-link" onClick={logOut}>
-                        <div className="navbar-icon"><CiLogout/></div>
-                        <div style={{display: isOpen ? "block" : "none"}}>log-out</div>
-                    </li>
+                                <div className="navbar-icon"><CiLogout/></div>
+                                <div style={{display: isOpen ? "block" : "none"}}>log-out</div>
+                            </li>
 
                     }
                 </ul>

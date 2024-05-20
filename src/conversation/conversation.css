@@ -1,7 +1,7 @@
 .conversation{
     display: flex;
     flex-direction: row;
-    background: url("/public/backgroundtest.jpeg");
+    background: url("/backgroundtest.jpeg");
     background-size: auto 4000px;
 }
 
