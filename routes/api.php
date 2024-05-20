@@ -18,6 +18,8 @@ Route::get('/token/verify', [UserController::class, 'verifyToken'])->middleware(
 Route::get('/offres',[\App\Http\Controllers\OffreController::class,'index']);
 
 Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/user/offre', [\App\Http\Controllers\OffreController::class,'show']);
+    Route::get('/user/cv',[\App\Http\Controllers\CvController::class,'show']);
 	Route::apiResource('/offre',\App\Http\Controllers\OffreController::class);
 	Route::apiResource('/conversation',\App\Http\Controllers\ConversationController::class);
 	Route::apiResource('/message',\App\Http\Controllers\MessageController::class);

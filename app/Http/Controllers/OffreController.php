@@ -49,13 +49,16 @@ class OffreController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($id)
+    public function show()
     {
-        $offre = Offre::with('user')->findOrFail($id);
+        $id = Auth::id();
+        $offres = Offre::with('offrecvs.cv')->where('user_id',$id);
 
-        $offre->lienphoto = asset('photo_offre/'.$offre->lienphoto);
+        foreach ($offres as $offre) {
+            $offre->lienphoto = asset('photo_offre/' . $offre->lienphoto);
+        }
 
-        return $offre;
+        return $offres;
     }
 
     /**
@@ -63,7 +66,7 @@ class OffreController extends Controller
      */
     public function update($id, Request $request)
     {
-        $offre = Offre::FindOrFail($id);
+        $offre = Offre::findOrFail($id);
         $fields = $request->validate([
             'name' => 'sometimes|string',
             'description' => 'sometimes|string',
@@ -88,7 +91,7 @@ class OffreController extends Controller
      */
     public function destroy($id)
     {
-        $offre = Offre::FindOrFail($id);
+        $offre = Offre::findOrFail($id);
         File::delete(public_path('photo_offre/'.$offre->lienphoto));
         $offre->delete();
 
