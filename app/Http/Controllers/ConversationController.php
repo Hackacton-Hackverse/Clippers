@@ -28,14 +28,46 @@ class ConversationController extends Controller
     public function store(Request $request)
     {
         $user_id1 = Auth::id();
+
+        // Validation des champs
         $fields = $request->validate([
-            "user_id2" => 'required|exists:users,id'
+            'email' => 'required|exists:users,email'
         ]);
+
+        // Récupération de l'utilisateur correspondant à l'email
+        $user2 = User::where('email', $fields['email'])->firstOrFail();
+
+        // Ajout des IDs utilisateurs dans les champs
         $fields['user_id1'] = $user_id1;
+        $fields['user_id2'] = $user2->id;
+        if ($fields['user_id1'] === $fields['user_id2']) {
+            return response()->json(['error' => 'Cannot create a conversation with yourself'], 400); // 400 pour Bad Request
+        }
 
-        return response()->json(Conversation::create($fields));
+        // Vérification de l'existence du couple d'utilisateurs dans les conversations
+        $existingConversation = Conversation::where(function ($query) use ($user_id1, $user2) {
+            $query->where('user_id1', $user_id1)
+                ->where('user_id2', $user2->id);
+        })->orWhere(function ($query) use ($user_id1, $user2) {
+            $query->where('user_id1', $user2->id)
+                ->where('user_id2', $user_id1);
+        })->first();
 
+        if ($existingConversation) {
+            return response()->json(['error' => 'Conversation already exists'], 409); // 409 pour Conflict
+        }
+
+        // Création de la conversation
+        try {
+            $conversation = Conversation::create($fields);
+            return response()->json($conversation, 201); // 201 pour Created
+        } catch (\Exception $e) {
+            // Gestion des erreurs
+            return response()->json(['error' => 'Failed to create conversation'], 500); // 500 pour Internal Server Error
+        }
     }
+
+
 
     /**
      * Display the specified resource.

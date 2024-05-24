@@ -29,7 +29,8 @@ class MessageController extends Controller
             'conversation_id' => 'sometimes|integer|exists:conversations,id',
         ]);
         $fields['sender_id'] = $sender_id;
-        return response()->json(message::create($fields),201);
+       return response()->json(message::create($fields),201);
+       //return response()->json($fields,201);
     }
 
     /**

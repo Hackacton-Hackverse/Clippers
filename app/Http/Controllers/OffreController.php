@@ -52,13 +52,13 @@ class OffreController extends Controller
     public function show()
     {
         $id = Auth::id();
-        $offres = Offre::with('offrecvs.cv')->where('user_id',$id);
+        $offres = Offre::with('offrecvs.cv')->where('user_id',$id)->get();
 
         foreach ($offres as $offre) {
             $offre->lienphoto = asset('photo_offre/' . $offre->lienphoto);
         }
 
-        return $offres;
+        return response()->json($offres,201);
     }
 
     /**
