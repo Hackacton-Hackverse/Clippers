@@ -84,7 +84,7 @@ function Navbar({setIsAuthenticated},isAuthenticated) {
                             </NavLink>
                         </li>
 
-                        {!isAuthenticated
+                        {!isAuthenticated===false
                             ?
                             <li className="nav-link">
                                 <NavLink to="/login"

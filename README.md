@@ -1,8 +1,19 @@
-# React + Vite
+voici notre code front end
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+pour lancer le projet on se rassure d'avoir cloner ou telecharger le backend, de configurer le fichier .env et  on va d'abord dans le backend et on tape la commande
 
-Currently, two official plugins are available:
+```shell
+composer install
+php artisan serve
+```
+il faut se rassurer qu'il est sur le port 8000
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+ensuite on clone le front end et on tape la commande 
+
+```shell
+npm install
+npm run dev
+```
+
+il faut se rassurer qu'il est sur le port 5173 car c'est le port qui est coonfigurer dans le backend
+
