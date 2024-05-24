@@ -6,14 +6,14 @@ import {TiBusinessCard} from "react-icons/ti";
 import {IoMenuSharp} from "react-icons/io5";
 import { NavLink } from 'react-router-dom';
 import {useState} from "react";
-import {MdWork} from "react-icons/md";
+import {MdDashboardCustomize, MdWork} from "react-icons/md";
 import { IoAddCircle } from "react-icons/io5";
 import {CiLogout} from "react-icons/ci";
 import axiosInstance from "../axios.js";
 
 
 
-
+// eslint-disable-next-line react/prop-types
 function Navbar({setIsAuthenticated},isAuthenticated) {
     const [isOpen, setIsOpen] = useState(false);
     const toggle = ()=> setIsOpen(!isOpen)
@@ -36,7 +36,7 @@ function Navbar({setIsAuthenticated},isAuthenticated) {
 
     return (
         <>
-            <nav className="navbar" style={{ width: isOpen ? "300px" : "70px" }}>
+            <nav id="navbar" style={{ width: isOpen ? "300px" : "70px" }}>
                 <div className="logoMonSite">
                     <span style={{ display: isOpen ? "flex" : "none" }}><img src="/clippers.svg" className="logoSite"/></span>
                     <div className="menu-button" onClick={toggle} style={{ transform: isOpen ? "rotate(90deg)" : "rotate(180deg)" }}><IoMenuSharp className="menu-icon"/></div>
@@ -76,8 +76,15 @@ function Navbar({setIsAuthenticated},isAuthenticated) {
                                 <div style={{display: isOpen ? "block" : "none"}}>create-job</div>
                             </NavLink>
                         </li>
+                        <li className="nav-link">
+                            <NavLink to="/manage-offer"
+                                     className={`nav-link-item ${({isActive}) => (isActive ? 'active' : '')}`}>
+                                <div className="navbar-icon"><MdDashboardCustomize/></div>
+                                <div style={{display: isOpen ? "block" : "none"}}>manage job</div>
+                            </NavLink>
+                        </li>
 
-                        {isAuthenticated
+                        {!isAuthenticated
                             ?
                             <li className="nav-link">
                                 <NavLink to="/login"
@@ -91,10 +98,9 @@ function Navbar({setIsAuthenticated},isAuthenticated) {
                                 <div className="navbar-icon"><CiLogout/></div>
                                 <div style={{display: isOpen ? "block" : "none"}}>log-out</div>
                             </li>
-
-                    }
-                </ul>
-            </div>
+                        }
+                    </ul>
+                </div>
                 {/*<div className="profile-manage">*/}
                 {/*    <button className="account profile">*/}
                 {/*        <CgProfile className="icon"/>*/}

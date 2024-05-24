@@ -4,7 +4,7 @@ import './RegisterForm.css';
 import axiosInstance, {verifytoken} from "../axios.js";
 
 // eslint-disable-next-line react/prop-types
-function RegisterForm({setIsAuthenticated, fetchConversations}) {
+function RegisterForm({setIsAuthenticated}) {
     const navigate = useNavigate();
     const location = useLocation();
     const [formdata, setFormdata] = useState({
@@ -16,8 +16,8 @@ function RegisterForm({setIsAuthenticated, fetchConversations}) {
 
     useEffect(() => {
         const redirectUrl = location.state?.from?.pathname || '/';
-        verifytoken({setIsAuthenticated,fetchConversations,navigate},redirectUrl)
-    }, [fetchConversations, location.state?.from?.pathname, navigate, setIsAuthenticated]);
+        verifytoken({setIsAuthenticated,navigate},redirectUrl)
+    }, [ location.state?.from?.pathname, navigate, setIsAuthenticated]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;

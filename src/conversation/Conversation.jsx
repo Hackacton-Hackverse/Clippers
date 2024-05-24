@@ -3,6 +3,7 @@ import NavbarChat from "./Navbar-chat/Navbar-chat.jsx";
 import ListDisc from "./ListDisc/ListDisc.jsx";
 import Discussion from "./Discussion/Discussion.jsx";
 import './conversation.css'
+import axiosInstance from "../axios.js";
 
 function Conversation(props) {
     const [selectedMessages, setSelectedMessages] = useState(null);
@@ -11,8 +12,9 @@ function Conversation(props) {
     const [selectedName, setSelectedName] = useState(null);
     const [activeSection, setActiveSection] = useState('personnel');
     const [receiver_id, setReceiver_id] = useState(null)
-    const conversations = props.conversations
+    const [conversations, setConversations] = useState([]);
     const userId = props.userId
+    const isAuthenticated = props.isAuthenticated
     const [conversation_id, setConversation_id] = useState(null)
 
 
@@ -47,7 +49,24 @@ function Conversation(props) {
         return () => {
             window.removeEventListener('keydown', handleKeyDown);
         };
-    }, []);
+    }, [exit_discussion]);
+
+    useEffect(() => {
+        let intervalId;
+        if (isAuthenticated===true) {
+            intervalId = setInterval(() => {
+                axiosInstance.get(`/conversation`)
+                    .then(function (response) {
+                        setConversations(response.data);
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            }, 1000);
+        }
+
+        return () => clearInterval(intervalId); // Nettoyer l'intervalle lorsque le composant est démonté ou lorsque isAuthenticated change
+    }, [isAuthenticated]);
 
     return (
         <div className="conversation">
@@ -72,7 +91,6 @@ function Conversation(props) {
                                                  profilePicture={selectedProfilePicture}
                                                  name={selectedName}
                                                  exitdiscussion = {exit_discussion}
-                                                 sender_id={userId}
                                                  receiver_id={receiver_id}
                                                  conversation_id={conversation_id}
                 />

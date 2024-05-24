@@ -36,7 +36,7 @@ function TemplateOffre(props) {
             }
                     // Faites quelque chose avec la réponse réussie
         } catch (error) {
-            alert(error.response.data);
+                alert(error.response.data)
             // Gérez l'erreur renvoyée par Axios
         }
 

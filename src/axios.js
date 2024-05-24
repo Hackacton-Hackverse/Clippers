@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-    baseURL: 'https://pipo-app.kesug.com/api',
+    baseURL: 'http://localhost:8000/api',
 });
 
 axiosInstance.interceptors.request.use(
@@ -17,17 +17,14 @@ axiosInstance.interceptors.request.use(
     }
 );
 
-export const verifytoken = ({setIsAuthenticated, fetchConversations, navigate},redirectUrl) => {
+export const verifytoken = ({setIsAuthenticated,  navigate},redirectUrl) => {
     const token = localStorage.getItem('token');
     if (token) {
-        console.log(token)
         axiosInstance.get('/token/verify')
             .then(response => {
                 if (response.status === 200) {
                     setIsAuthenticated(true);
-                    fetchConversations();
                     navigate(redirectUrl, { replace: true });
-                    console.log('validate token')
                 }else {
                     console.log('errorrrrr',response)
                     setIsAuthenticated(false);
@@ -37,6 +34,7 @@ export const verifytoken = ({setIsAuthenticated, fetchConversations, navigate},r
             })
             .catch(error => {
                 console.error(error);
+                localStorage.removeItem('token');
             });
     } else {
         setIsAuthenticated(false);

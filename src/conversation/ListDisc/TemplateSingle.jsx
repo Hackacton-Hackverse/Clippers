@@ -4,15 +4,12 @@ import { useEffect } from 'react';
 function TemplateSingle(props) {
     const messages = props.messages;
 
-    useEffect(() => {
-        
-        console.log('messages', messages);
-    }, []);
+
     const setDiscussion = () => {
         const activediscussion = document.getElementsByClassName("discussion")
         activediscussion[0].style.display = "block"
         props.setSelectedMessages(messages);
-        props.handleClick(props.index, "/pexels-moh-adbelghaffar-771742.jpg", "shadow");
+        props.handleClick(props.index, "/pexels-moh-adbelghaffar-771742.jpg", props.name);
     }
 
     return (

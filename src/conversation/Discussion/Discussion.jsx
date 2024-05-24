@@ -16,22 +16,32 @@ function Discussion(props) {
 
     const handleClick = async (e) => {
         e.preventDefault()
-        if(!sentMessage.message || !sentMessage.receiver_id){
+        if(!sentMessage.message){
             alert("you mustn't sent an empty message")
-        }else {
+        }else if (!sentMessage.receiver_id){
+            alert('receiver_id is required')
+        } else {
             const formdata = new FormData();
             formdata.append('message', sentMessage.message);
             formdata.append('receiver_id',sentMessage.receiver_id);
             formdata.append('conversation_id',sentMessage.conversation_id);
 
-            const response = await axiosInstance.post('/message',formdata);
-            if(response.status !== 201) {
-                alert('your message was not sent');
-            } else {
-                setSentMessage({
-                    ...sentMessage, [me]:null
+
+            axiosInstance.post('/message',sentMessage)
+                .then(function (response) {
+                    if(response.status !== 201) {
+                        alert('your message was not sent');
+                    }else {
+                        setSentMessage({
+                            message : '',
+                            receiver_id : props.receiver_id,
+                            conversation_id : props.conversation_id
+                        })
+                    }
                 })
-            }
+                .catch(function (error) {
+                    console.log(error);
+                });
         }
     }
     const handleChange = (e) => {

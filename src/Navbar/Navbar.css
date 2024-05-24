@@ -1,4 +1,4 @@
-.navbar {
+#navbar {
   padding-top: 20px;
   display: flex;
   flex-direction: column;
@@ -11,7 +11,7 @@
   transition: 0.5s;
 }
 
-.logoMonSite {
+#navbar .logoMonSite {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -21,7 +21,7 @@
   transition: 0.5s;
 }
 
-.logoSite {
+#navbar .logoMonSite .logoSite {
   height: 70px;
   margin-right: 10px;
 }
@@ -40,9 +40,11 @@
 }
 
 .nav-item ul {
+  padding-left: 0;
   display: flex;
   font-size: 18pt;
   flex-direction: column;
+  transition: 0.5s;
 }
 
 .nav-item ul li {

@@ -31,8 +31,7 @@ function Offres(props) {
 
                     <div className="all-offer">
                         {offres.map((offres,index) => (
-                            // eslint-disable-next-line react/jsx-key
-                            <TemplateOffre  offer_id ={offres.id} source={offres.lienphoto} title={offres.name} date={offres.created_at} description={offres.description} />
+                            <TemplateOffre key={index} offer_id ={offres.id} source={offres.lienphoto} title={offres.name} date={offres.created_at} description={offres.description} />
                         ))}
                     </div>
                 </div>
