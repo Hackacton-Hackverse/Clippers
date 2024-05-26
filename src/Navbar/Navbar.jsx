@@ -4,8 +4,8 @@ import {SlHome} from "react-icons/sl";
 import { IoMdChatbubbles } from "react-icons/io";
 import {TiBusinessCard} from "react-icons/ti";
 import {IoMenuSharp} from "react-icons/io5";
-import { NavLink } from 'react-router-dom';
-import {useState} from "react";
+import {NavLink, useNavigate} from 'react-router-dom';
+import {useEffect, useState} from "react";
 import {MdDashboardCustomize, MdWork} from "react-icons/md";
 import { IoAddCircle } from "react-icons/io5";
 import {CiLogout} from "react-icons/ci";
@@ -14,24 +14,29 @@ import axiosInstance from "../axios.js";
 
 
 // eslint-disable-next-line react/prop-types
-function Navbar({setIsAuthenticated},isAuthenticated) {
+function Navbar({setIsAuthenticated,isAuthenticated}) {
     const [isOpen, setIsOpen] = useState(false);
     const toggle = ()=> setIsOpen(!isOpen)
+    const navigate = useNavigate()
 
     const logOut = () => {
         if(isAuthenticated){
             axiosInstance.post('/logout')
                 .then(response => {
-                    if (response.status === 200) {
-                        setIsAuthenticated(false);
-                        localStorage.removeItem('token')
-                    }
+                    setIsAuthenticated(false);
+                    localStorage.removeItem('token')
+                    alert("vous etes actuellement deconnecte")
+                    navigate('/cv',{replace:true})
                 })
                 .catch(error => {
                     console.error(error);
                 })
         }
     }
+
+    useEffect(() => {
+
+    }, []);
 
 
     return (
@@ -84,8 +89,13 @@ function Navbar({setIsAuthenticated},isAuthenticated) {
                             </NavLink>
                         </li>
 
-                        {!isAuthenticated===false
+                        {isAuthenticated === true
                             ?
+                            <li className="nav-link" onClick={logOut}>
+                                <div className="navbar-icon"><CiLogout/></div>
+                                <div style={{display: isOpen ? "block" : "none"}}>log-out</div>
+                            </li>
+                            :
                             <li className="nav-link">
                                 <NavLink to="/login"
                                          className={`nav-link-item ${({isActive}) => (isActive ? 'active' : '')}`}>
@@ -93,22 +103,9 @@ function Navbar({setIsAuthenticated},isAuthenticated) {
                                     <div style={{display: isOpen ? "block" : "none"}}>log-in</div>
                                 </NavLink>
                             </li>
-                            :
-                            <li className="nav-link" onClick={logOut}>
-                                <div className="navbar-icon"><CiLogout/></div>
-                                <div style={{display: isOpen ? "block" : "none"}}>log-out</div>
-                            </li>
                         }
                     </ul>
                 </div>
-                {/*<div className="profile-manage">*/}
-                {/*    <button className="account profile">*/}
-                {/*        <CgProfile className="icon"/>*/}
-                {/*    </button>*/}
-                {/*    <button className="account logout">*/}
-                {/*        <CgLogIn className="icon"/>*/}
-                {/*    </button>*/}
-                {/*</div>*/}
             </nav>
         </>
     );

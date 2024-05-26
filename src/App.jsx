@@ -12,11 +12,10 @@ import ProtectedRoute from "./ProtectedRoute.jsx";
 import Addjob from './AddJob/Addjob.jsx';
 import axiosInstance from './axios';
 import Managajob from "./manage-job/Managajob.jsx";
+import EnhancedTable from "./ManageCvs/ManageCvs.jsx";
 
 function App() {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [messages, setMessages] = useState([]);
-    const [conversations, setConversations] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
@@ -98,6 +97,12 @@ function App() {
                                 <ProtectedRoute isAuthenticated={isAuthenticated}>
                                     <Managajob isAuthenticated={isAuthenticated}/>
                                 </ProtectedRoute>
+                            }
+                        />
+                        <Route
+                            path="manage-cv"
+                            element={
+                                <EnhancedTable />
                             }
                         />
                         <Route path="/*" element={<Navigate to="/" replace />} />

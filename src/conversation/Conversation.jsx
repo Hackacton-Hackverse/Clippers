@@ -13,9 +13,9 @@ function Conversation(props) {
     const [activeSection, setActiveSection] = useState('personnel');
     const [receiver_id, setReceiver_id] = useState(null)
     const [conversations, setConversations] = useState([]);
-    const userId = props.userId
     const isAuthenticated = props.isAuthenticated
     const [conversation_id, setConversation_id] = useState(null)
+    const [currentMessages, setCurrentMessages] = useState([]);
 
 
     const resetDiscussionStates = () => {
@@ -53,11 +53,20 @@ function Conversation(props) {
 
     useEffect(() => {
         let intervalId;
-        if (isAuthenticated===true) {
+        if (isAuthenticated === true) {
             intervalId = setInterval(() => {
                 axiosInstance.get(`/conversation`)
                     .then(function (response) {
-                        setConversations(response.data);
+                        const updatedConversations = response.data;
+                        setConversations(updatedConversations);
+
+                        // Mettre à jour currentMessages avec les messages de la conversation sélectionnée
+                        const selectedConversationIndex = updatedConversations.findIndex(
+                            conv => conv.conversation_id === conversation_id
+                        );
+                        if (selectedConversationIndex !== -1) {
+                            setCurrentMessages(updatedConversations[selectedConversationIndex].messages);
+                        }
                     })
                     .catch(function (error) {
                         console.log(error);
@@ -65,8 +74,8 @@ function Conversation(props) {
             }, 1000);
         }
 
-        return () => clearInterval(intervalId); // Nettoyer l'intervalle lorsque le composant est démonté ou lorsque isAuthenticated change
-    }, [isAuthenticated]);
+        return () => clearInterval(intervalId);
+    }, [isAuthenticated, conversation_id]);
 
     return (
         <div className="conversation">
@@ -84,10 +93,11 @@ function Conversation(props) {
                     messages = {conversations}
                     setReceiver_id = {setReceiver_id}
                     setConversation_id = {setConversation_id}
+                    setCurrentMessages={setCurrentMessages}
                 />
             </div>
             <div className="discussion">
-                {selectedMessages && <Discussion messages={selectedMessages}
+                {selectedMessages && <Discussion messages={currentMessages}
                                                  profilePicture={selectedProfilePicture}
                                                  name={selectedName}
                                                  exitdiscussion = {exit_discussion}

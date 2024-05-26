@@ -74,7 +74,7 @@ function ListDisc(props) {
         props.setSelectedName(name);
         props.setReceiver_id(a[index].destinataireId);
         props.setConversation_id(a[index].conversation_id)
-        // Ajoutez ici la logique pour passer les messages à setSelectedMessages
+        props.setCurrentMessages(a[index].messages);
     };
 
     return (
